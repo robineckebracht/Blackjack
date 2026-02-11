@@ -15,7 +15,7 @@ public sealed class GameState
     {
         get
         {
-            throw new NotImplementedException();
+            return Phase == GamePhase.RoundOver;
         }
     }
 }

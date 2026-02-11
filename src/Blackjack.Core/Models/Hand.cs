@@ -8,19 +8,45 @@ public sealed class Hand
 
     public void Add(Card card)
     {
-        throw new NotImplementedException();
+        _cards.Add(card);
     }
 
     public void Clear()
     {
-        throw new NotImplementedException();
+        _cards.Clear();
     }
 
     public int BestScore
     {
         get
         {
-            throw new NotImplementedException();
+            int score = 0;
+            int aceCount = 0;
+
+            foreach (var card in _cards)
+            {
+                if (card.Rank == Rank.Ace)
+                {
+                    aceCount++;
+                    score += 11; 
+                }
+                else if (card.Rank >= Rank.Jack && card.Rank <= Rank.King)
+                {
+                    score += 10;
+                }
+                else
+                {
+                    score += (int)card.Rank;
+                }
+            }   
+
+            while (score > 21 && aceCount > 0)
+            {
+                score -= 10;
+                aceCount--;
+            }
+
+            return score;
         }
     }
 
@@ -28,15 +54,19 @@ public sealed class Hand
     {
         get
         {
-            throw new NotImplementedException();
+            return _cards.Count == 2 && BestScore == 21;
         }
     }
 
     public bool IsBust
     {
-        get
+        get 
         {
-            throw new NotImplementedException();
+            if (BestScore > 21)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
